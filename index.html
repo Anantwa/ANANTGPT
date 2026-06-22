@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANANTGPT(nonAPI)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="rail">
+        <div class="brand">
+          <div class="brand-mark">D</div>
+          <div>
+            <strong>ANANTGPT(nonAPI)</strong>
+            <span>Everyday AI assistant</span>
+          </div>
+        </div>
+
+        <button class="new-chat" id="newChat">New chat</button>
+
+        <div class="rail-section">
+          <span class="section-label">Chats</span>
+          <button class="thread active">General chat</button>
+          <button class="thread">Essay practice</button>
+          <button class="thread">Study help</button>
+        </div>
+
+        <div class="rail-section">
+          <span class="section-label">Modes</span>
+          <label class="tool-toggle"><input type="checkbox" checked data-tool="writing" /> Writing help</label>
+          <label class="tool-toggle"><input type="checkbox" checked data-tool="study" /> Study help</label>
+          <label class="tool-toggle"><input type="checkbox" checked data-tool="planning" /> Planning</label>
+          <label class="tool-toggle"><input type="checkbox" checked data-tool="data" /> Optional data tools</label>
+        </div>
+      </aside>
+
+      <main class="llm-workspace">
+        <header class="model-bar">
+          <div>
+            <h1>ANANTGPT(nonAPI)</h1>
+            <p>A simple everyday assistant for chatting, essays, explanations, ideas, study help, planning, and general questions.</p>
+          </div>
+          <div class="model-controls">
+            <select id="modelSelect">
+              <option>GPT-Pro</option>
+              <option>GPT-Reasoner</option>
+              <option>Creative Writer</option>
+              <option>Study Tutor</option>
+            </select>
+            <button id="settingsButton" class="ghost-button">Settings</button>
+          </div>
+        </header>
+
+        <section class="chat-stage">
+          <div class="chat-log" id="chatLog"></div>
+
+          <div class="composer">
+            <div class="tool-row">
+              <button data-prompt="Write a short essay on the importance of education.">Essay</button>
+              <button data-prompt="Explain photosynthesis in simple words.">Explain</button>
+              <button data-prompt="Give me a productive daily routine.">Plan</button>
+            </div>
+            <div class="prompt-box">
+              <textarea id="promptInput" rows="3" placeholder="Message the assistant..."></textarea>
+              <button id="sendPrompt">Send</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="context-panel">
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Assistant Settings</h2>
+            <span id="runtimeStatus">Demo mode</span>
+          </div>
+          <div class="setting">
+            <label>System role</label>
+            <textarea id="systemPrompt" rows="5">You are a friendly general-purpose AI assistant. Help with everyday conversation, essays, explanations, planning, study, writing, coding, and optional data analysis. Be clear, useful, and natural.</textarea>
+          </div>
+          <div class="setting-grid">
+            <label>Temperature <input id="temperature" type="range" min="0" max="100" value="35" /></label>
+            <label>Memory <input id="memoryToggle" type="checkbox" checked /></label>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Optional File Tools</h2>
+            <button id="loadSample">Load sample</button>
+          </div>
+          <label class="upload-zone" for="fileInput">
+            <input id="fileInput" type="file" accept=".csv,.tsv,.txt,.xlsx,.xls" multiple />
+            <strong>Attach CSV / Excel</strong>
+            <span>Only if you want file analysis</span>
+          </label>
+          <div class="data-metrics">
+            <div><span>Rows</span><strong id="rowCount">0</strong></div>
+            <div><span>Columns</span><strong id="columnCount">0</strong></div>
+            <div><span>Missing</span><strong id="missingCount">0</strong></div>
+            <div><span>Target</span><strong id="targetColumn">None</strong></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Thinking Trace</h2>
+            <span>Local reasoning</span>
+          </div>
+          <div class="trace-list" id="traceList"></div>
+        </section>
+
+        <section class="panel compact">
+          <div class="panel-header">
+            <h2>Memory</h2>
+            <button id="clearMemory">Clear</button>
+          </div>
+          <div class="memory-list" id="memoryList"></div>
+        </section>
+      </aside>
+    </div>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" class="settings-modal">
+        <div class="panel-header">
+          <h2>Connect a Real Model</h2>
+          <button value="cancel">Close</button>
+        </div>
+        <label>Provider
+          <select id="provider">
+            <option>Demo local brain</option>
+            <option>OpenAI-compatible endpoint</option>
+            <option>Ollama / local model</option>
+            <option>vLLM server</option>
+          </select>
+        </label>
+        <label>Endpoint URL
+          <input id="endpointUrl" placeholder="http://localhost:11434 or /api/chat" />
+        </label>
+        <label>API key
+          <input id="apiKey" type="password" placeholder="Stored only in this browser demo" />
+        </label>
+        <p>This frontend is ready for a real chat backend. In this local demo, responses are generated in-browser to show the product experience.</p>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
